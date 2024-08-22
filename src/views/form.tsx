@@ -35,7 +35,7 @@ const UserForm: React.FC<UserFormProps> = ({ setDialog }) => {
       if (res.status === 1) {
         dispatch(insertDataList(res.data));
         setDialog(false);
-        handleToast(res.status, res.message);
+        handleToast(res.status, res.description);
       }
     } catch (err) {
       alert(err);

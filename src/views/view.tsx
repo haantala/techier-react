@@ -61,7 +61,7 @@ export default function View() {
       const res = await updateData(data);
       if (res.status === 1) {
         dispatch(updateDataList(res.data));
-        handleToast(res.status, res.message);
+        handleToast(res.status, res.description);
       }
       return { ...data, isNew: false };
     } catch (err) {
@@ -76,7 +76,7 @@ export default function View() {
         const res = await deleteData({ data_id: id });
         if (res.status === 1) {
           dispatch(deleteDataList(id));
-          handleToast(res.status, res.message);
+          handleToast(res.status, res.description);
         }
       }
     } catch (err) {

@@ -10,7 +10,8 @@ interface Data {
 interface ApiResponse {
   status: any;
   message: any;
-  data?: any; // Adjust type based on your actual API response
+  data?: any;
+  description:any; // Adjust type based on your actual API response
 }
 
 // Function to insert data

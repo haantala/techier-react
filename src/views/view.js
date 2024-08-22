@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Icon } from '@iconify-icon/react';
 import { deleteDataList, getDataList, updateDataList } from '../redux/reducers/data';
 import { deleteData, getData, updateData } from '../@core/api/common_api';
+import { deleteSweetAlert, handleToast } from '../utils/utils';
 
 const defaultTheme = createTheme();
 
@@ -45,6 +46,7 @@ export default function View() {
     .then((res)=>{
       if (res.status===1) {
         dispatch(updateDataList(res.data))
+        handleToast(res.status, res.message);
       }
     })
     .catch((err)=>console.log(err)
@@ -54,12 +56,17 @@ export default function View() {
   }
 
   const handleDeleteData = async(id)=>{
-    await deleteData({data_id:id})
-    .then((res)=>{
-      if(res.status===1){
-        dispatch(deleteDataList(id))
-      }
-    })
+    deleteSweetAlert({}).then(async function (result) {
+      if (result.isConfirmed === true) {
+        await deleteData({data_id:id})
+        .then((res)=>{
+          if(res.status===1){
+            dispatch(deleteDataList(id))
+            handleToast(res.status, res.message);
+          }
+        })
+      }})
+  
 
   }
 
@@ -191,6 +198,21 @@ useEffect(()=>{
 
 },[])
 
+const handleDataFilter = () => {
+  if (!FilterData) {
+    return Datalist;
+  }
+  const searchTerm =
+    FilterData && typeof FilterData === 'string' ? FilterData.toLowerCase() : '';
+  return Datalist.filter((row) => {
+    const matchDataFirstName = row?.firstname?.toLowerCase().includes(searchTerm);
+    const matchDataLAstName = row?.lastname?.toLowerCase().includes(searchTerm);
+    const matchDataEmail = row?.email?.toLowerCase().includes(searchTerm);
+    const matchDatamobile = row?.mobile?.toLowerCase().includes(searchTerm);
+    return matchDataFirstName || matchDataLAstName || matchDataEmail || matchDatamobile;
+  });
+};
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -212,27 +234,6 @@ useEffect(()=>{
           />
           <Button
             onClick={() => {
-            //   if (FilterData !== undefined && FilterData !== temp) {
-            //     handlefilter();
-            //   }
-            }}
-            variant="contained"
-            color="primary"
-            sx={{ mr: 2 }}
-          >search
-          </Button>
-          <Button
-            onClick={() => {
-              setFilterData('');
-            }}
-            variant="outlined"
-            color="inherit"
-            sx={{ mr: 5 }}
-          >
-            reset
-          </Button>
-          <Button
-            onClick={() => {
             setDialog(true)
             }}
              variant="contained"
@@ -246,7 +247,7 @@ useEffect(()=>{
       <Card className="dataGrid-card">
         <DataGrid
           columns={columns}
-          rows={Datalist?.map((item, index) => ({
+          rows={(FilterData?.length ? handleDataFilter():Datalist)?.map((item, index) => ({
             id: index + 1,
             ...item,
           }))}
@@ -265,6 +266,11 @@ useEffect(()=>{
           initialState={{
             pagination: { paginationModel: { pageSize: 10 } },
           }}
+          style={
+            handleDataFilter().length === 0 || Datalist.length === 0
+              ? { height: 500 }
+              : {}
+          }
           localeText={{ noRowsLabel: 'There are No Records to Display' }}
           slots={{
             loadingOverlay: LinearProgress,

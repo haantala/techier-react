@@ -10,6 +10,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { insertDataList } from '../redux/reducers/data';
 import { insertData } from '../@core/api/common_api';
+import { handleToast } from '../utils/utils';
 
 const defaultTheme = createTheme();
 
@@ -30,6 +31,7 @@ const dispatch = useDispatch()
       if(res.status===1) {
         dispatch(insertDataList(res.data))
         setDialog(false)
+        handleToast(res.status, res.message);
       }
       
     })

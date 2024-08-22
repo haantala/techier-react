@@ -1,8 +1,7 @@
-import Axios from 'axios';
+import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiRoutes } from '../constants';
 
 export const axios = Axios.create({
-  rejectUnauthorized: false, // (NOTE: this will disable client verification)
   baseURL: ApiRoutes.API_HOSTNAME,
   timeout: 1000000000,
 
@@ -10,11 +9,10 @@ export const axios = Axios.create({
 });
 
 axios.interceptors.request.use(
-  async (config) => {
+  async (config:any) => {
     config.headers = {
       Accept: 'application/json , */*',
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem('UserData'))?.verify_token}`,
     };
     return config;
   },
@@ -22,10 +20,11 @@ axios.interceptors.request.use(
 );
 
 axios.interceptors.response.use(
-  (response) => response?.data,
+  (response: AxiosResponse) => response?.data,
   (error) => {
     return Promise.reject(error);
   }
 );
 
 export default axios;
+

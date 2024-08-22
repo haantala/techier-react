@@ -6,15 +6,21 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-     <Provider store={store}>
-     <App />
-     </Provider>
-    
-  </React.StrictMode>
-);
+// Type for the root element
+const rootElement = document.getElementById('root') as HTMLElement | null;
+
+// Ensure rootElement is not null before creating the root
+if (rootElement) {
+  const root = ReactDOM.createRoot(rootElement);
+
+  root.render(
+    <React.StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </React.StrictMode>
+  );
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

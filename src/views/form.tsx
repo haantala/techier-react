@@ -100,16 +100,18 @@ const UserForm: React.FC<UserFormProps> = ({ setDialog }) => {
                 autoComplete="new-password"
               />
             </Grid>
-          </Grid>
-          <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6}>
             <Button
               type="submit"
               fullWidth
+              color='success'
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
               Submit
             </Button>
+            </Grid>
+            <Grid item xs={12} sm={6}>
             <Button
               fullWidth
               variant="outlined"
@@ -118,6 +120,7 @@ const UserForm: React.FC<UserFormProps> = ({ setDialog }) => {
             >
               Cancel
             </Button>
+          </Grid>
           </Grid>
         </Box>
       </Container>

@@ -3,23 +3,13 @@ import Button from '@mui/material/Button';
 import PropTypes from 'prop-types';
 import { DataGrid, gridClasses, GridRowEditStopReasons, GridRowModes, useGridApiContext, GridEventListener, GridRowModel,GridColDef } from '@mui/x-data-grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Card, Dialog, DialogContent, DialogTitle, IconButton, LinearProgress, Stack, TextField, Tooltip } from '@mui/material';
+import { Card, Dialog, DialogContent, DialogTitle, IconButton, Stack, TextField, Tooltip } from '@mui/material';
 import UserForm from './form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Icon } from '@iconify-icon/react';
 import { deleteDataList, getDataList, updateDataList } from '../redux/reducers/data';
 import { deleteData, getData, updateData } from '../@core/api/common_api';
 import { deleteSweetAlert, handleToast } from '../utils/utils';
-
-// Define types for your data
-interface DataItem {
-  data_id: number;
-  firstname: string;
-  lastname: string;
-  mobile: string;
-  email: string;
-  password: string;
-}
 
 interface RowModesModel {
   [key: string]: { mode: GridRowModes; ignoreModifications?: boolean };
@@ -203,7 +193,7 @@ export default function View() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Card sx={{ mb: 2 }}>
+      <Card sx={{ mb: 2 , px:2}}>
         <Stack spacing={1} flexGrow={1} direction="row" justifyContent="flex-end" sx={{ p: 2 }}>
           <TextField
             sx={{
@@ -227,6 +217,7 @@ export default function View() {
           </Button>
         </Stack>
       </Card>
+      <hr/>
       <Card className="dataGrid-card">
         <DataGrid
           columns={columns}
@@ -264,7 +255,7 @@ export default function View() {
             },
             '&.MuiDataGrid-root .MuiDataGrid-cell:focus-within': {
               outline: 'none !important',
-            },
+            }, px:3
           }}
         />
       </Card>

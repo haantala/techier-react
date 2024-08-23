@@ -1,7 +1,7 @@
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { ReactNode } from "react";
-import View from "../views/view";
+import View from "../views/data/view";
 
 // Define a type for your menu item
 interface MenuItem {
@@ -18,8 +18,16 @@ const Data: MenuItem = {
   Icon2: <MailIcon />,
   path: "/",
 };
+const Home: MenuItem = {
+  name: "Home",
+  Icon1: <InboxIcon />,
+  Icon2: <MailIcon />,
+  path: "/home",
+};
 
 // Define the Menu array with the correct type
-export const Menu: MenuItem[] = [Data];
+const userRoute: MenuItem[] = [Data,Home];
+
+let Menu = userRoute
 
 export default Menu;

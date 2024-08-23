@@ -7,9 +7,9 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch } from 'react-redux';
-import { insertDataList } from '../redux/reducers/data';
-import { insertData } from '../@core/api/common_api';
-import { handleToast } from '../utils/utils';
+import { insertDataList } from '../../redux/reducers/data';
+import { insertData } from '../../@core/api/common_api';
+import { handleToast } from '../../utils/utils';
 
 // Define props type
 interface UserFormProps {

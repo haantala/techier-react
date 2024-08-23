@@ -7,9 +7,9 @@ import { Card, Dialog, DialogContent, DialogTitle, IconButton, Stack, TextField,
 import UserForm from './form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Icon } from '@iconify-icon/react';
-import { deleteDataList, getDataList, updateDataList } from '../redux/reducers/data';
-import { deleteData, getData, updateData } from '../@core/api/common_api';
-import { deleteSweetAlert, handleToast } from '../utils/utils';
+import { deleteDataList, getDataList, updateDataList } from '../../redux/reducers/data';
+import { deleteData, getData, updateData } from '../../@core/api/common_api';
+import { deleteSweetAlert, handleToast } from '../../utils/utils';
 
 interface RowModesModel {
   [key: string]: { mode: GridRowModes; ignoreModifications?: boolean };

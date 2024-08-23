@@ -6,7 +6,6 @@ import View from "../../views/view";
 export default function AppRoutes(): JSX.Element {
   const routes = useRoutes([
     { path: "/", element: <View /> },
-    // Add more routes as needed
   ]);
 
   return (
